@@ -26,5 +26,9 @@ python app.py
 ```
 Open your browser and navigate to http://127.0.0.1:5000.
 
+Test examples for your reference : <br>
+https://www.youtube.com/watch?v=y5swuvLFnCA <br>
+https://www.youtube.com/channel/UC85aYbNSFjsJdxfpxgQr8tA
+
 ## <p align="center"> Made with :heart: by Comder101. <p/>
 
