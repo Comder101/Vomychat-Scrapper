@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Scraper</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100%;
+            background: rgb(134,152,245);
+            background: radial-gradient(circle, rgba(134,152,245,1) 0%, rgba(252,70,107,1) 100%);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            overflow-y: auto;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .wrapper div {
+            position: absolute;
+            height: 60px;
+            width: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: animate 8s linear infinite;
+        }
+
+        .wrapper div .dot {
+            position: absolute;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            top: 20%;
+            right: 20%;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: scale(0) translateY(0) rotate(70deg);
+            }
+
+            100% {
+                transform: scale(1.3) translateY(-100px) rotate(360deg);
+            }
+        }
+
+        .wrapper div:nth-child(1) {
+            top: 20%;
+            left: 20%;
+            animation-duration: 8s;
+        }
+
+        .wrapper div:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-duration: 10s;
+        }
+
+        .wrapper div:nth-child(3) {
+            top: 40%;
+            left: 40%;
+            animation-duration: 3s;
+        }
+
+        .wrapper div:nth-child(4) {
+            top: 66%;
+            left: 30%;
+            animation-duration: 7s;
+        }
+
+        .wrapper div:nth-child(5) {
+            top: 90%;
+            left: 10%;
+            animation-duration: 9s;
+        }
+
+        .wrapper div:nth-child(6) {
+            top: 30%;
+            left: 60%;
+            animation-duration: 5s;
+        }
+
+        .wrapper div:nth-child(7) {
+            top: 70%;
+            left: 20%;
+            animation-duration: 8s;
+        }
+
+        .wrapper div:nth-child(8) {
+            top: 75%;
+            left: 60%;
+            animation-duration: 10s;
+        }
+
+        .wrapper div:nth-child(9) {
+            top: 50%;
+            left: 50%;
+            animation-duration: 6s;
+        }
+
+        .wrapper div:nth-child(10) {
+            top: 45%;
+            left: 20%;
+            animation-duration: 10s;
+        }
+
+        .wrapper div:nth-child(11) {
+            top: 10%;
+            left: 90%;
+            animation-duration: 9s;
+        }
+
+        .wrapper div:nth-child(12) {
+            top: 20%;
+            left: 70%;
+            animation-duration: 7s;
+        }
+
+        .wrapper div:nth-child(13) {
+            top: 20%;
+            left: 20%;
+            animation-duration: 8s;
+        }
+
+        .wrapper div:nth-child(14) {
+            top: 60%;
+            left: 5%;
+            animation-duration: 6s;
+        }
+
+        .wrapper div:nth-child(15) {
+            top: 90%;
+            left: 80%;
+            animation-duration: 9s;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.9);
+            margin-top: 50px;
+        }
+
+        .form-container input,
+        .form-container select,
+        .form-container button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #results {
+            margin-top: 20px;
+            max-height: 300px; 
+            overflow-y: auto;  
+        }
+
+
+        #results pre {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+    </div>
+
+    <div class="form-container">
+        <h2>YouTube Scraper</h2>
+        <form id="scraper-form">
+            <label for="url">URL:</label>
+            <input type="url" name="url" id="url" placeholder="Enter YouTube URL" required>
+            <label for="data_type">What do you wish to know?</label>
+            <select name="data_type" id="data_type" required>
+                <option value="comments">Comments</option>
+                <option value="likes">Likes</option>
+                <option value="subscribers">Subscribers</option>
+            </select>
+            <button type="submit">Scrape data</button>
+        </form>
+
+        <div id="results">
+            <h3>Results:</h3>
+            <pre id="result-data"></pre>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#scraper-form').on('submit', function (e) {
+                e.preventDefault();
+    
+                const url = $('#url').val();
+                const dataType = $('#data_type').val();
+                $('#result-data').text('Loading...');
+    
+                $.ajax({
+                    url: '/scrape',
+                    method: 'POST',
+                    data: {
+                        url: url,
+                        data_type: dataType
+                    },
+                    success: function (response) {
+                        const formattedList = generateBulletList(response);
+                        $('#result-data').html(formattedList); 
+                    },
+                    error: function (err) {
+                        $('#result-data').text('Error: ' + err.responseText);
+                    }
+                });
+
+                function generateBulletList(obj) {
+                    let html = '<ul style="list-style-type: disc;">'; 
+                    for (const key in obj) {
+                        if (key === 'published_at') continue;
+                        if (Array.isArray(obj[key])) {
+                            html += `<li><strong>${capitalizeKey(key)}:</strong><br>${formatArray(obj[key])}</li>`;
+
+                        } 
+                        else if (typeof obj[key] === 'object' && obj[key] !== null) {
+                            html += `<li><strong>${capitalizeKey(key)}:</strong> ${formatInlineObject(obj[key])}</li>`;
+                        } 
+                        else {
+                                html += `<li><strong>${capitalizeKey(key)}:</strong> ${obj[key]}</li>`;
+                        }
+                    }
+                    html += '</ul>';
+                    return html;
+                }
+
+                function capitalizeKey(key) {
+                    if (key === 'author') return 'Author';
+                    if (key === 'text') return 'Comment';
+                    return key.charAt(0).toUpperCase() + key.slice(1);
+                }
+    
+                function formatArray(arr) {
+                    return arr
+                        .map((item) => {
+                            if (typeof item === 'object') {
+                                return formatInlineObject(item); 
+                            }
+                            return item;
+                        })
+                        .join('<br>');
+                }
+
+                function formatInlineObject(obj) {
+                    return Object.entries(obj)
+                        .map(([key, value]) => `<strong>${capitalizeKey(key)}:</strong> ${value}`)
+                        .join(', ');
+                }
+            });
+        });
+    </script>
+    
+</body>
+
+</html>
