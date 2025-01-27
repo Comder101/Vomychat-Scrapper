@@ -16,11 +16,14 @@ cd Vomychat-Scrapper
 
 Install Dependencies:
 Use pip to install the required Python libraries :
-`pip install -r requirements.txt`
+```
+pip install -r requirements.txt
+```
 
 Run the Application:
-
-`python app.py` <br>
+```
+python app.py 
+```
 Open your browser and navigate to http://127.0.0.1:5000.
 
 ## <p align="center"> Made with :heart: by Comder101. <p/>
